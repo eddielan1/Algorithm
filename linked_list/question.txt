@@ -1,0 +1,9 @@
+I will list some common linked list questions hee.
+So that I will keep reminding myslef some knowledge about this data structure.
+
+Q1: What is linked list?
+Q2: Why do we need this data structure?
+Q3: What is the difference between Array and Linked list?
+Q4: How can we use linked list?
+
+
