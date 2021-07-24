@@ -52,7 +52,15 @@ void display(struct Node* input_linked_list) {
     printf("Finish displaying the linked list\n");
 }
 
-int count_linked_list(struct Node *input_array_list) {
+void recursive_display(struct Node *input_node) {
+    while (input_node != NULL) {
+        printf("Data in that node == %d\n", input_node->data);
+        recursive_display(input_node->next);
+    }
+
+}
+
+int count(struct Node *input_array_list) {
     if (input_array_list == NULL) {
         printf("%s:Invalid input parameter\n",__func__);
         return -1;
@@ -70,7 +78,7 @@ int count_linked_list(struct Node *input_array_list) {
     return count;
 }
 
-int sum_linked_list(struct Node *input_linked){
+int sum(struct Node *input_linked){
     if (input_linked == NULL) {
         printf("%s: Invalid input parameter\n",__func__);
         return -1;
@@ -85,7 +93,7 @@ int sum_linked_list(struct Node *input_linked){
     return sum;
 }
 
-void max_linked(struct Node *input) {
+void max(struct Node *input) {
     if(input == NULL) {
         printf("%s: Invalid input\n",__func__);
         return;
@@ -120,24 +128,62 @@ int search(struct Node *input, int target) {
 
 }
 
-int moveHeadSearch(struct Node *input, int target) {
+int move_head_search(struct Node *input, int target) {
     if(input == NULL) {
         printf("%s: Invalid input\n",__func__);
         return -1;
     }
 
-    struct Node *first_node = input;
-    while(input != NULL) {
-       if (target == input->data) {
+    struct Node *current_node = input;
+    struct Node *previous_node = NULL;
+    while(current_node != NULL) {
+       if (target == current_node->data) {
             printf("%s: found the target %d\n",__func__, target);
-            int tmp = first_node->data;
-            first_node->data = input->data;
-            input->data = tmp;
+            previous_node->next = current_node->next;
+            current_node->next = input;
+            input = current_node;
             return target;
        }
-       input = input->next;
+       // Both nodes move to the next one.
+       previous_node = current_node;
+       current_node = current_node->next;
     }
     return -1;
+}
+
+void insert(struct Node *node, int position, int target) {
+    if (node == NULL || position < 0) {
+        printf("Invalid Parameter!\n");
+        return;
+    }
+    
+    struct Node *current_node = node;
+
+    // Create the target node
+    struct Node *target_node = (struct Node*)malloc(sizeof(struct Node));
+    target_node->data = target;
+    target_node->next = NULL;
+
+    // Insert the target node at first node
+    if (position == 0) {
+        printf("Enter position 0\n");
+        target_node->next = current_node;
+        current_node = target_node;
+    } else {
+        // Travel to the target node
+        for(int i = 0; i < position -1 && current_node; i++) {
+            current_node = current_node->next;
+        }
+        // Already travel to the target node
+        if (current_node) {
+            target_node->next = current_node->next;
+            current_node->next = target_node;
+        } else {
+            printf("The given position is not within the given linked list!\n");
+        }
+    }
+
+
 }
 
 int main() {
@@ -154,18 +200,19 @@ int main() {
 	}
 
     display(ret_ptr);
-    ret = count_linked_list(ret_ptr);
+    ret = count(ret_ptr);
     if (ret < 0) {
         printf("Failed to count the total number of linked list\b");
         return -1;
     }
-    ret = sum_linked_list(ret_ptr);
-    max_linked(ret_ptr);
+    ret = sum(ret_ptr);
+    max(ret_ptr);
     search(ret_ptr, 5);
-    moveHeadSearch(ret_ptr,4);
+    move_head_search(ret_ptr,4);
     display(ret_ptr);
+    //insert(ret_ptr, 0, 10);
+    //display(ret_ptr);
     
-
     return 0;
 
 }

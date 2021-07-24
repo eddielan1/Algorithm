@@ -1,9 +1,14 @@
 I will list some common linked list questions hee.
-So that I will keep reminding myslef some knowledge about this data structure.
+So that I can keep reminding myslef some knowledge about this data structure.
 
 Q1: What is linked list?
 Q2: Why do we need this data structure?
 Q3: What is the difference between Array and Linked list?
 Q4: How can we use linked list?
+Q5: How to travle the linked list?
+Q6: How to display the linked list?
+Q7: How to search target node on a given linked list?
+Q8: How to improve the search() in previous question?
+Q9: How to insert a node?
 
 
